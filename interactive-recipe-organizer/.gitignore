@@ -1,0 +1,66 @@
+# Operating systems
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.env
+.env.local
+.env.*.local
+/dist
+/build
+.cache
+coverage/
+
+# Python (if present)
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyt
+env/
+venv/
+ENV/
+pip-wheel-metadata/
+.python-version
+.pytest_cache/
+
+# Databases / local data
+data/
+*.db
+*.sqlite
+dump/
+mongod.lock
+
+# Docker
+docker-compose.override.yml
+*.log
+
+# Editor/IDE
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.iml
+
+# Visual Studio
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Misc
+coverage/
+logs/
+*.log
+.cache/
+dist/
+build/
+
+.env.*
+*.bak
