@@ -4,8 +4,8 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-// GET /recipes/:id/comments - fetch nested/threaded comments
-router.get('/recipes/:id/comments', async (req, res, next) => {
+// GET /:id/comments - fetch nested/threaded comments for a recipe
+router.get('/:id/comments', async (req, res, next) => {
   try {
     const allComments = await Comment.find({ recipeId: req.params.id }).lean();
     // Build threaded/nested structure
@@ -25,8 +25,8 @@ router.get('/recipes/:id/comments', async (req, res, next) => {
   }
 });
 
-// POST /recipes/:id/comments - add comment or reply
-router.post('/recipes/:id/comments', authMiddleware, async (req, res, next) => {
+// POST /:id/comments - add comment or reply to a recipe
+router.post('/:id/comments', authMiddleware, async (req, res, next) => {
   try {
     const { content, parentId } = req.body;
     const comment = new Comment({

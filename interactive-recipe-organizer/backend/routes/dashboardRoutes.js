@@ -2,7 +2,13 @@ const express = require('express');
 const Recipe = require('../models/Recipe');
 const Comment = require('../models/Comment');
 const User = require('../models/User');
+const authMiddleware = require('../middleware/authMiddleware');
+const adminMiddleware = require('../middleware/adminMiddleware');
 const router = express.Router();
+
+// Apply auth and admin middleware to all dashboard routes
+router.use(authMiddleware);
+router.use(adminMiddleware);
 
 // Top-rated recipes
 router.get('/top-rated', async (req, res, next) => {
@@ -21,9 +27,21 @@ router.get('/active-users', async (req, res, next) => {
       { $group: { _id: '$userId', count: { $sum: 1 } } },
       { $sort: { count: -1 } },
       { $limit: 5 },
-      { $lookup: { from: 'users', localField: '_id', foreignField: '_id', as: 'user' } },
-      { $unwind: '$user' },
-      { $project: { username: '$user.username', count: 1 } }
+      { 
+        $lookup: { 
+          from: 'users', 
+          localField: '_id', 
+          foreignField: '_id', 
+          as: 'user' 
+        } 
+      },
+      { $unwind: { path: '$user', preserveNullAndEmptyArrays: true } },
+      { 
+        $project: { 
+          username: { $ifNull: ['$user.username', 'Unknown User'] }, 
+          count: 1 
+        } 
+      }
     ]);
     res.json(users);
   } catch (err) {

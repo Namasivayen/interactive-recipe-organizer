@@ -53,8 +53,15 @@ router.post('/:id/rate', authMiddleware, async (req, res, next) => {
 // GET /recipes with filtering
 router.get('/', async (req, res, next) => {
   try {
-    const { cuisine, minRating, maxPrepTime } = req.query;
+    const { cuisine, minRating, maxPrepTime, ids } = req.query;
     let filter = {};
+    
+    // Support filtering by comma-separated IDs for favorites
+    if (ids) {
+      const idArray = ids.split(',').map(id => id.trim());
+      filter._id = { $in: idArray };
+    }
+    
     if (cuisine) filter.cuisine = cuisine;
     if (minRating) filter.averageRating = { $gte: Number(minRating) };
     if (maxPrepTime) filter.prepTime = { $lte: Number(maxPrepTime) };

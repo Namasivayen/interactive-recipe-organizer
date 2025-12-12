@@ -25,7 +25,8 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 // API routes
 app.use('/auth', authRoutes);
 app.use('/recipes', recipeRoutes);
-app.use('/comments', commentRoutes);
+app.use('/recipes', commentRoutes); // Mount comment routes under /recipes to handle /recipes/:id/comments
+app.use('/comments', commentRoutes); // Also keep under /comments for like functionality
 app.use('/dashboard', dashboardRoutes);
 
 

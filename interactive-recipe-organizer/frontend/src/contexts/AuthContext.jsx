@@ -19,9 +19,13 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = (token) => {
+  const login = (token, userData) => {
     localStorage.setItem('token', token);
-    api.get('/auth/profile').then(res => setUser(res.data));
+    if (userData) {
+      setUser(userData);
+    } else {
+      api.get('/auth/profile').then(res => setUser(res.data));
+    }
   };
 
   const logout = () => {

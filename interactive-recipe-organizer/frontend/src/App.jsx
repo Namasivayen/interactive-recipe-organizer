@@ -27,7 +27,7 @@ function App() {
             <Route path="/recipes" element={<RecipeList />} />
             <Route path="/recipes/:id" element={<RecipeDetails />} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           </Routes>
         </main>
         <Footer />
